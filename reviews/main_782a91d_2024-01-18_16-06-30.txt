@@ -1,0 +1,7 @@
+Review:
+Potential issues, bugs, or flaws:
+- It seems like the variables `inboxHeaderColor` and `inboxFontColor` have been removed from the props without any explanation or replacement. This could potentially break any functionality or styling reliant on these props.
+  
+Code suggestions, improvements, etc.:
+- It's important to understand why the variables were removed. If they are no longer needed due to changes in requirements or design, it should be documented in the code comments or in the pull request description.
+- If the variables were simply removed by mistake, they should be reinstated or properly deprecated with a clear explanation.

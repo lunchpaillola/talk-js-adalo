@@ -10,8 +10,6 @@ const ConversationUI = ({
   conversationId,
   addParticipantsToConversation,
   _height,
-  inboxHeaderColor,
-  inboxFontColor,
   loadingColor,
 }) => {
   const syncUser = useCallback(() => new Talk.User(me), []);
