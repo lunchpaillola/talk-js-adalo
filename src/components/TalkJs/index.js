@@ -18,6 +18,7 @@ const TalkJs = (props) => {
     loadingColor,
     inboxHeaderColor,
     inboxFontColor,
+    chatView
   } = props;
 
   const ID = talkJsApplicationID;
@@ -33,29 +34,6 @@ const TalkJs = (props) => {
       });
     }
   }, [userId, name, email, role]);
-
-  if (editor) {
-    return (
-      <Image
-        source={editorImage} // Set the source to your imported image
-        style={{
-          flex: 1,
-          height: _height,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "red",
-        }}
-      />
-    );
-  }
-
-  if (!talkJsApplicationID || !userId || !name || !me || !ID) {
-    return (
-      <View style={styles.centeredLoader}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
 
   const createUniqueConversationId = (participantList) => {
     const userIds = Array.from(
@@ -105,6 +83,22 @@ const TalkJs = (props) => {
   };
 
   return (
+    editor ? (
+      <Image
+        source={editorImage}
+        style={{
+          flex: 1,
+          height: _height,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "red",
+        }}
+      />
+    ) : (!talkJsApplicationID || !userId || !name || !me || (chatView && participantList?.length === 0))  ? (
+      <View style={{ ...styles.wrapper, height: _height }}>
+        <ActivityIndicator size="large" color={loadingColor || "#242526"} />
+      </View>
+    ) : (
     <ConversationUI
       conversationId={conversationId}
       me={me}
@@ -115,7 +109,9 @@ const TalkJs = (props) => {
       inboxHeaderColor={inboxHeaderColor}
       inboxFontColor={inboxFontColor}
       loadingColor={loadingColor}
+      chatView={chatView}
     />
+    )
   );
 };
 

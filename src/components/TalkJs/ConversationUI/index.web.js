@@ -11,6 +11,7 @@ const ConversationUI = ({
   addParticipantsToConversation,
   _height,
   loadingColor,
+  chatView,
 }) => {
   const syncUser = useCallback(() => new Talk.User(me), []);
 
@@ -30,12 +31,12 @@ const ConversationUI = ({
     style: { width: "100%", height: _height },
     className: "chat-container",
     loadingComponent: (
-      <View style={styles.container}>
+      <View style={{...styles.wrapper,height: _height}}>
         <ActivityIndicator size="large" color={loadingColor || "#242526"} />
       </View>
     ),
-    // Add syncConversation prop only if participantList is defined and not empty
-    ...(participantList?.length > 0 && { syncConversation }),
+    // Add syncConversation prop only if chatView prop is defined and not empty
+    ...(chatView && participantList?.length > 0 && { syncConversation }),
   };
 
   return (
