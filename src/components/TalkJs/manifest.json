@@ -17,32 +17,32 @@
       "name": "userId",
       "displayName": "ID",
       "type": "text",
-      "helpText": "The id of the user joining this conversation"
+      "helpText": "The id of the local user joining this conversation"
     },
     {
       "name": "name",
       "displayName": "Name",
       "type": "text",
-      "helpText": "The display name for the participant in the conversation"
+      "helpText": "The display name for the local user in the conversation"
     },
     {
       "name": "photo",
       "displayName": "Photo",
       "type": "image",
-      "helpText": "The optional user image for the call"
+      "helpText": "The optional profile image of the local user joining this conversation"
     },
     {
       "name": "email",
       "displayName": "Email",
       "type": "text",
-      "helpText": "The user's email"
+      "helpText": "The optional email of the local user"
     },
     {
       "name": "role",
       "displayName": "Role",
       "type": "text",
       "default": "default",
-      "helpText": "The role for the participant set roles in TalkJS"
+      "helpText": "The optional role for the local user"
     },
     {
       "name": "loadingColor",
@@ -66,9 +66,18 @@
       "default": "#000000"
     },
     {
+      "name": "chatView",
+      "displayName": "Start in chat view",
+      "type": "boolean",
+      "helpText": "Starts in chat view instead of the inbox; add participants if enabled"
+    },
+    {
       "name": "participantList",
       "displayName": "Participants",
-      "type": "list"
+      "type": "list",
+      "enabled": {
+        "chatView": true
+      }
     }
   ],
   "childComponents": [
@@ -77,6 +86,9 @@
       "displayName": "Participant Details",
       "role": "listItem",
       "reference": "participantList",
+      "enabled": {
+        "chatView": true
+      },
       "props": [
         {
           "name": "pUserId",
