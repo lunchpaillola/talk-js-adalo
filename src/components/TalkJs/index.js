@@ -44,6 +44,8 @@ const TalkJs = (props) => {
       )
     ).sort((a, b) => a - b);
 
+    userIds.push(userId);
+
     const uniqueSortedIds = Array.from(new Set(userIds)).sort();
     const concatenatedIds = uniqueSortedIds.join("-");
     const hash = sha256(concatenatedIds);
