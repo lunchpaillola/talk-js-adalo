@@ -22,25 +22,27 @@ add_pod_to_target() {
     fi
 }
 
+# Enable modular headers for all pods
+echo "Enabling modular headers globally in Podfile"
+if ! grep -q "use_modular_headers!" "$podfile"; then
+    sed -i '' '1s/^/use_modular_headers!\n/' "$podfile"
+fi
+
 # Modify the podfile within the target
 add_pod_to_target "  pod 'Firebase', :modular_headers => true"
 add_pod_to_target "  pod 'FirebaseCore', :modular_headers => true"
 add_pod_to_target "  pod 'GoogleUtilities', :modular_headers => true"
 
-# Note: If the RNFirebaseAsStaticFramework setting needs to be within the target, move this into the function above
-if ! grep -q "RNFirebaseAsStaticFramework = true" "$podfile"; then
-    echo "\$RNFirebaseAsStaticFramework = true" >> "$podfile"
-fi
+# Ensure RNFirebaseAsStaticFramework setting is added within the target block
+add_pod_to_target "\$RNFirebaseAsStaticFramework = true"
 
-#check and add microphone usage description in Info.plist
+# Check and add microphone usage description in Info.plist
 if grep -q "<key>NSMicrophoneUsageDescription</key>" "$infoPlist"; then
-echo "Microphone already supported in $infoPlist, nothing to do here."
+    echo "Microphone already supported in $infoPlist, nothing to do here."
 else
-echo "Adding NSMicrophoneUsageDescription to $infoPlist"
-plutil -insert NSMicrophoneUsageDescription -string 'Chat needs microphone to record messages' "$infoPlist"
+    echo "Adding NSMicrophoneUsageDescription to $infoPlist"
+    plutil -insert NSMicrophoneUsageDescription -string 'Chat needs microphone to record messages' "$infoPlist"
 fi
-
-
 
 echo "Podfile configured for target $target"
 echo "Info.plist configured for microphone support"
