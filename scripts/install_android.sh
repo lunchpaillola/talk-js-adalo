@@ -10,7 +10,7 @@ androidManifestFile="android/app/src/main/AndroidManifest.xml"
 
 # Function to update compileSdkVersion
 update_compileSdkVersion() {
-    sed -i "s/compileSdkVersion = [0-9]*/compileSdkVersion = 33/" "$rootGradleFile"
+    sed -i "s/compileSdkVersion = [0-9]*/compileSdkVersion = 34/" "$rootGradleFile"
 }
 
 # Function to add resolutionStrategy in the app build.gradle
